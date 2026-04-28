@@ -25,5 +25,10 @@ def health():
     return jsonify({"status": "ok"})
 
 
+@app.route("/count")
+def count():
+    return jsonify({"count": len(quotes)})
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=3000)
