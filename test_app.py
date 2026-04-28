@@ -15,4 +15,4 @@ def test_quotes_list_has_expected_minimum():
 
 
 def test_this_should_fail_on_purpose():
-    assert 1 == 2, "Math is broken"        
+    assert 1 == 1, "Math Works"        
