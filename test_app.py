@@ -12,3 +12,7 @@ def test_quotes_list_is_not_empty():
 
 def test_quotes_list_has_expected_minimum():
     assert len(quotes) >= 3, "Should have at least 3 quotes"
+
+
+def test_this_should_fail_on_purpose():
+    assert 1 == 1, "Math Works"
