@@ -7,6 +7,7 @@ quotes = [
     "The only way to do great work is to love what you do. - Steve Jobs",
     "Innovation distinguishes between a leader and a follower. - Steve Jobs",
     "Stay hungry, stay foolish. - Steve Jobs",
+    "Imagination is more important than knowledge. - Albert Einstein",
 ]
 
 
