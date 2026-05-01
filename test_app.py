@@ -31,4 +31,4 @@ def test_count_endpoint_returns_correct_number():
     client = app.test_client()
     response = client.get('/count')
     assert response.status_code == 200
-    assert response.get_json()["count"] == len(quotes) + 999  # intentionally wrong
+    assert response.get_json()["count"] == len(quotes)  # fixed
