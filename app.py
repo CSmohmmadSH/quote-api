@@ -1,4 +1,5 @@
 import random
+import os
 from flask import Flask, jsonify
 
 app = Flask(__name__)
@@ -29,6 +30,12 @@ def health():
 @app.route("/count")
 def count():
     return jsonify({"count": len(quotes)})
+
+@app.route("/version")
+def version():
+    slot = os.environ.get("DEPLOY_SLOT", "unknown")
+    return jsonify({"slot": slot, "version": "1.0"})
+
 
 
 if __name__ == "__main__":
