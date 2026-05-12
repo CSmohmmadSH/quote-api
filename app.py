@@ -37,6 +37,25 @@ def version():
     return jsonify({"slot": slot, "version": "1.0"})
 
 
+@app.route("/featured")
+def featured():
+    # Read the flag from environment variable
+    # If FEATURED_QUOTE_ENABLED is "true", show the feature
+    # Otherwise, return a 404-style response
+    flag = os.environ.get("FEATURED_QUOTE_ENABLED", "false")
+    
+    if flag.lower() == "true":
+        return jsonify({
+            "featured": True,
+            "quote": "The best time to plant a tree was 20 years ago. The second best time is now. - Chinese Proverb",
+            "message": "This is the featured quote of the day!"
+        })
+    else:
+        return jsonify({
+            "featured": False,
+            "message": "Featured quotes are not enabled yet."
+        }), 200
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=3000)
