@@ -1,4 +1,4 @@
-name: CD
+name: CD — Blue-Green Deploy
 
 on:
   push:
@@ -6,25 +6,31 @@ on:
       - main
 
 jobs:
-  deploy-staging:
-    name: Deploy to Staging
+  deploy-blue:
+    name: Deploy to Blue (Staging)
     runs-on: ubuntu-latest
-    environment: staging        # uses staging env secrets
+    environment: staging
 
     steps:
-      - name: Trigger Render staging deploy
+      - name: Trigger blue slot deploy
         run: |
           curl -s "${{ secrets.RENDER_DEPLOY_HOOK_URL }}"
-          echo "Staging deploy triggered"
+          echo "Blue slot deploy triggered"
 
-  deploy-production:
-    name: Deploy to Production
+      - name: Verify blue slot is healthy
+        run: |
+          sleep 30
+          curl -f https://quote-api-staging-y816.onrender.com/health
+          echo "Blue slot is healthy"
+
+  swap-to-green:
+    name: Swap Traffic to Green (Production)
     runs-on: ubuntu-latest
-    needs: deploy-staging        # waits for staging to finish
-    environment: production      # triggers approval gate
+    needs: deploy-blue          # waits for blue to be healthy
+    environment: production     # requires your manual approval
 
     steps:
-      - name: Trigger Render production deploy
+      - name: Trigger green slot deploy
         run: |
           curl -s "${{ secrets.RENDER_DEPLOY_HOOK_URL }}"
-          echo "Production deploy triggered"
+          echo "Green slot deploy triggered — traffic swapped"
